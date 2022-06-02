@@ -38,12 +38,12 @@ void printdir(char *dir, int depth)
 int main(int argc, char * argv[])
 {
     char * topdir = ".";
-    if(argv >= 2)
+    if(argc >= 2)
     {
         topdir = argv[1];
     }
     printf("Dir scan of %s\n\r",topdir);
     printf(topdir,0);
-    printf("done\n\t");
+    printf("done!\n\r");
     return 0;
 }
