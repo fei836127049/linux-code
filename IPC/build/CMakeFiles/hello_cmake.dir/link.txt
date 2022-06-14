@@ -1,0 +1,1 @@
+/usr/bin/cc CMakeFiles/hello_cmake.dir/src/hello.c.o CMakeFiles/hello_cmake.dir/src/main.c.o -o ../code-out/hello_cmake 
