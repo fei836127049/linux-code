@@ -4,7 +4,7 @@
 # compile C with /usr/bin/cc
 C_DEFINES = 
 
-C_INCLUDES = -I/include
+C_INCLUDES = -I/home/code/linux/linux-code/IPC/include
 
 C_FLAGS = 
 
