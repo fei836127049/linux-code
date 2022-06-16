@@ -1,0 +1,1 @@
+/usr/bin/cc CMakeFiles/shm1.dir/src/shm1.c.o -o ../code-out/shm1 

@@ -11,7 +11,8 @@ int main()
     void * shared_memory = (void *)0;
     struct shared_use_st * shared_stuff;
     int shmid;
-    srand((unsigned int)getpid());
+    char buffer[BUFSIZ];
+    srand((unsigned int)getpid);
     shmid = shmget((key_t)1234, sizeof(struct shared_use_st), 0666 | IPC_CREAT);
     if (shmid == -1)
     {
@@ -24,31 +25,29 @@ int main()
         fprintf(stderr, "shmat failed\n\r");
         exit(EXIT_FAILURE);
     }
-    printf("Memory attached at %X\n\r", (intptr_t )(int *)shared_memory);
+    printf("Memory attached at %X\n\r", (int)shared_memory);
     shared_stuff = (struct shared_use_st *)shared_memory;
-    shared_stuff->written_by_you = 0;
+    // shared_stuff->written_by_you = 0;
     while (running)
     {
-        if (shared_stuff->written_by_you)
+        while (shared_stuff->written_by_you == 1)
         {
-            printf("You wrote: %s", shared_stuff->some_text);
-            sleep(rand() % 4);
-            shared_stuff->written_by_you = 0;
-            if(strncmp(shared_stuff->some_text, "end", 3) == 0)
-            {
-                running = 0;
-            }
+            //printf("You wrote: %s", shared_stuff->some_text);
+            sleep(1);
+            printf("waiting for client\n\r");
         }
-        
+        printf("enter some text: ");
+        fgets(buffer, BUFSIZ, stdin);
+        strncpy(shared_stuff->some_text, buffer, TEXT_SIZE);
+        shared_stuff->written_by_you = 1;
+        if(strncmp(shared_stuff->some_text, "end", 3) == 0)
+        {
+            running = 0;
+        }
     }
     if (shmdt(shared_memory) == -1)
     {
         fprintf(stderr, "shmdt failed\n\r");
-        exit(EXIT_FAILURE);
-    }
-    if(shmctl(shmid, IPC_RMID, 0) == -1)
-    {
-        fprintf(stderr, "shmdt(IPC_RMID) failed\n\r");
         exit(EXIT_FAILURE);
     }
     exit(EXIT_SUCCESS);

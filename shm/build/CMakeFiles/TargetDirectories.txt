@@ -1,0 +1,3 @@
+/home/code/linux/linux-code/shm/build/CMakeFiles/rebuild_cache.dir
+/home/code/linux/linux-code/shm/build/CMakeFiles/shm1.dir
+/home/code/linux/linux-code/shm/build/CMakeFiles/edit_cache.dir
